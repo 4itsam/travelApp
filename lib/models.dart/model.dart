@@ -56,7 +56,7 @@ class TravelList {
     travelList.add(
       TravelList(
         title: "Shiraz",
-        image: Assets.images.esfahan.path,
+        image: Assets.images.shiraz.path,
         subtitle: "Hafez",
         location: "Shiraz - Iran",
         description:

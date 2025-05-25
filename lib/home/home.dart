@@ -9,21 +9,24 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<TravelList> travelList = [];
+  int selectedIndex = 0; // <--- Moved selectedIndex to be a state variable
+  double imageSize =
+      70; // <--- Good to also make this a state variable if its value doesn't change based on build context
+
+  @override
+  void initState() {
+    super.initState();
+    _getTravelList(); // Initialize travelList here
+  }
 
   void _getTravelList() {
     travelList = TravelList.getModels();
   }
 
   @override
-  void initState() {
-    super.initState();
-    _getTravelList();
-  }
-
   Widget build(BuildContext context) {
+    // No need to call _getTravelList() here every build, call it in initState
     var size = MediaQuery.of(context).size;
-    int selectedIndex = 0;
-    double imageSize = 86;
 
     return SafeArea(
       child: Scaffold(
@@ -33,8 +36,6 @@ class _HomeState extends State<Home> {
             Container(
               width: double.infinity,
               height: size.height / 1.9,
-              //! color: Colors.red,
-              // color: Colors.red,
               child: Stack(
                 children: [
                   Positioned(
@@ -58,7 +59,7 @@ class _HomeState extends State<Home> {
                         ),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(Assets.images.esfahan.path),
+                          image: AssetImage(travelList[selectedIndex].image),
                         ),
                       ),
                     ),
@@ -97,54 +98,20 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   Positioned(
-                    right: 14,
-                    top: 164,
+                    top: 100,
+                    right: 20,
                     child: SizedBox(
-                      height: 300,
-                      width: 86,
+                      height: double.maxFinite,
+                      width: 100,
 
                       child: ListView.separated(
                         scrollDirection: Axis.vertical,
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            autofocus: true,
-
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = 3;
-                              });
-                            },
-                            child: AnimatedContainer(
-                              height: imageSize,
-                              width: imageSize,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
-                                color: const Color.fromARGB(255, 100, 100, 100),
-                                borderRadius: BorderRadius.circular(16),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                    travelList[index].image,
-                                  ),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color.fromARGB(90, 61, 61, 61),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 4),
-                                    blurStyle: BlurStyle.normal,
-                                  ),
-                                ],
-                              ),
-                              duration: Duration(milliseconds: 500),
-                            ),
-                          );
+                          return ImageItems(index);
                         },
-                        itemCount: 4,
+                        itemCount:
+                            travelList.length, // Use travelList.length here
                         separatorBuilder: (BuildContext context, int index) {
                           return SizedBox(height: 16);
                         },
@@ -157,7 +124,6 @@ class _HomeState extends State<Home> {
             Expanded(
               child: Container(
                 width: double.infinity,
-                //! color: Colors.blue,
                 child: Stack(
                   children: [
                     Align(
@@ -180,6 +146,48 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget ImageItems(int index) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+          child: AnimatedContainer(
+            height: selectedIndex == index ? imageSize + 15 : imageSize,
+            width: selectedIndex == index ? imageSize + 15 : imageSize,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color:
+                    selectedIndex == index
+                        ? const Color.fromARGB(255, 255, 255, 255)
+                        : const Color.fromARGB(255, 228, 228, 228),
+                width: 2,
+              ),
+              color: const Color.fromARGB(255, 100, 100, 100),
+              borderRadius: BorderRadius.circular(16),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(travelList[index].image),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(90, 61, 61, 61),
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
+                  blurStyle: BlurStyle.normal,
+                ),
+              ],
+            ),
+            duration: Duration(milliseconds: 500),
+          ),
+        ),
+      ],
     );
   }
 }
