@@ -58,7 +58,7 @@ class TravelList {
       TravelList(
         title: "Zahedan",
         image: Assets.images.zahedan.path,
-        subtitle: "makii",
+        subtitle: "Makki",
         location: "Zahedan - Iran",
         description:
             "Si-o-se-pol was built between 1599 and 1602, under the reign of Abbas the Great, the fifth shah of Safavid Iran. It was constructed under the supervision of Allahverdi Khan Undiladze, the commander-in-chief of the armies, who was of Georgian origin, and was also named after him. The bridge served particularly as a connection between the mansions of the elite, as well as a link to the city's vital Armenian neighborhood of New Julfa.",
