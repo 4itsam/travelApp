@@ -280,6 +280,8 @@ class _HomeState extends State<Home> {
           ExpandableText(
             travelList[selectedIndex].description,
             expandText: "show more",
+            
+            
             maxLines: 3,
             collapseText: "show less",
             animation: true,
