@@ -38,6 +38,7 @@ class _HomeState extends State<Home> {
               height: size.height / 1.9,
               child: Stack(
                 children: [
+                  //! bg container
                   Positioned(
                     top: 0,
                     left: 0,
@@ -64,7 +65,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  //? app bar section
+                  //! app bar section
                   Positioned(
                     top: 22,
                     left: 28,
@@ -72,7 +73,7 @@ class _HomeState extends State<Home> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        //? appbar Container 2
+                        //? appbar Container 1
                         Container(
                           height: 50,
                           width: 50,
@@ -83,7 +84,7 @@ class _HomeState extends State<Home> {
                           ),
                           child: Image.asset(Assets.icons.backIcon.path),
                         ),
-                        //appbar Container 2
+                        //?appbar Container 2
                         Container(
                           height: 50,
                           width: 50,
@@ -97,6 +98,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+                  //! Image List
                   Positioned(
                     top: 100,
                     right: 20,
@@ -118,25 +120,184 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
+
+                  //!back Cont6ainer
+                  Positioned(
+                    bottom: size.height / 7,
+                    left: size.width / 14,
+                    child: Container(
+                      height: 60,
+                      width: 220,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(92, 27, 27, 27),
+                        backgroundBlendMode: BlendMode.darken,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  //! text & place
+                  Positioned(
+                    bottom: size.height / 7,
+                    left: size.width / 9,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          travelList[selectedIndex].title,
+                          style: TextStyle(
+                            fontFamily: "dana",
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                            shadows: [
+                              BoxShadow(color: Colors.white, blurRadius: 6),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.map, color: Colors.white),
+                            Text(
+                              "${travelList[selectedIndex].subtitle} ${travelList[selectedIndex].location}",
+                              style: TextStyle(
+                                fontFamily: "dana",
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
             Expanded(
               child: Container(
                 width: double.infinity,
-                child: Stack(
+
+                child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 150,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 217, 217, 217),
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(24),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Card(
+                            color: const Color.fromARGB(255, 237, 237, 237),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: const Color.fromARGB(255, 126, 126, 126),
+                                width: 0.8,
+                              ),
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    "Distance",
+                                    style: TextStyle(
+                                      
+                                      color: Colors.black,
+                                      fontFamily: "dana",
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${travelList[selectedIndex].distance} km",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                          Card(
+                            color: const Color.fromARGB(255, 237, 237, 237),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: const Color.fromARGB(255, 126, 126, 126),
+                                width: 0.8,
+                              ),
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    "Temp",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "dana",
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${travelList[selectedIndex].temp}° C",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Card(
+                            color: const Color.fromARGB(255, 237, 237, 237),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: const Color.fromARGB(255, 126, 126, 126),
+                                width: 0.8,
+                              ),
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    "Rate",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "dana",
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${travelList[selectedIndex].rate} km",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -149,6 +310,7 @@ class _HomeState extends State<Home> {
     );
   }
 
+  //! Image list
   Widget ImageItems(int index) {
     return Column(
       children: [
@@ -167,10 +329,13 @@ class _HomeState extends State<Home> {
                     selectedIndex == index
                         ? const Color.fromARGB(255, 255, 255, 255)
                         : const Color.fromARGB(255, 228, 228, 228),
-                width: 2,
+                width: selectedIndex == index ? 3 : 2,
               ),
               color: const Color.fromARGB(255, 100, 100, 100),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius:
+                  selectedIndex == index
+                      ? BorderRadius.circular(16)
+                      : BorderRadius.circular(20),
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(travelList[index].image),
