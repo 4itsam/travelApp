@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'package:sizer/sizer.dart';
 import 'package:travelapp/gen/assets.gen.dart';
 import 'package:travelapp/models.dart/model.dart';
 
@@ -10,14 +11,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<TravelList> travelList = [];
-  int selectedIndex = 0; // <--- Moved selectedIndex to be a state variable
-  double imageSize =
-      70; // <--- Good to also make this a state variable if its value doesn't change based on build context
+  int selectedIndex = 0;
+  double imageSize = Adaptive.h(8);
 
   @override
   void initState() {
     super.initState();
-    _getTravelList(); // Initialize travelList here
+    _getTravelList();
   }
 
   void _getTravelList() {
@@ -26,9 +26,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // No need to call _getTravelList() here every build, call it in initState
-    var size = MediaQuery.of(context).size;
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 237, 237, 237),
@@ -37,7 +34,7 @@ class _HomeState extends State<Home> {
             children: [
               Container(
                 width: double.infinity,
-                height: size.height / 1.9,
+                height: Adaptive.h(55),
                 child: Stack(
                   children: [
                     //! bg container
@@ -46,7 +43,7 @@ class _HomeState extends State<Home> {
                       left: 0,
                       right: 0,
                       child: Container(
-                        height: 360,
+                        height: Adaptive.h(42),
                         width: double.infinity,
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -77,8 +74,8 @@ class _HomeState extends State<Home> {
                         children: [
                           //? appbar Container 1
                           Container(
-                            height: 50,
-                            width: 50,
+                            height: Adaptive.h(5.7),
+                            width: Adaptive.w(12),
                             decoration: BoxDecoration(
                               backgroundBlendMode: BlendMode.hardLight,
                               color: const Color.fromARGB(200, 177, 177, 177),
@@ -88,8 +85,8 @@ class _HomeState extends State<Home> {
                           ),
                           //?appbar Container 2
                           Container(
-                            height: 50,
-                            width: 50,
+                            height: Adaptive.h(5.7),
+                            width: Adaptive.w(12),
                             decoration: BoxDecoration(
                               backgroundBlendMode: BlendMode.hardLight,
                               color: const Color.fromARGB(200, 177, 177, 177),
@@ -102,7 +99,7 @@ class _HomeState extends State<Home> {
                     ),
                     //! Image List
                     Positioned(
-                      top: 100,
+                      top: 90,
                       right: 15,
                       child: SizedBox(
                         height: double.maxFinite,
@@ -124,13 +121,13 @@ class _HomeState extends State<Home> {
                     ),
                     //!back Cont6ainer
                     Positioned(
-                      bottom: size.height / 7,
-                      left: size.width / 14,
+                      bottom: Adaptive.w(31),
+                      left: Adaptive.w(7.5),
                       child: Container(
-                        height: 60,
-                        width: 220,
+                        height: Adaptive.h(7.2),
+                        width: Adaptive.w(53),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(92, 27, 27, 27),
+                          color: const Color.fromARGB(96, 27, 27, 27),
                           backgroundBlendMode: BlendMode.darken,
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -138,8 +135,8 @@ class _HomeState extends State<Home> {
                     ),
                     //! text & place
                     Positioned(
-                      bottom: size.height / 7,
-                      left: size.width / 9,
+                      bottom: Adaptive.w(31),
+                      left: Adaptive.w(10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -147,7 +144,7 @@ class _HomeState extends State<Home> {
                             travelList[selectedIndex].title,
                             style: TextStyle(
                               fontFamily: "dana",
-                              fontSize: 24,
+                              fontSize: Adaptive.sw(6.5),
                               fontWeight: FontWeight.w800,
                               color: Colors.white,
                               shadows: [
@@ -164,7 +161,7 @@ class _HomeState extends State<Home> {
                                   fontFamily: "dana",
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
-                                  fontSize: 14,
+                                  fontSize: Adaptive.sw(3.3),
                                 ),
                               ),
                             ],
@@ -181,7 +178,7 @@ class _HomeState extends State<Home> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 4),
                       child: RowBoxWidgetInformations(),
                     ),
                     //! description feild
@@ -200,66 +197,53 @@ class _HomeState extends State<Home> {
 
   Padding actionFeild() {
     return Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10,
-                      left: 36,
-                      right: 36,
-                      bottom: 10
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: const EdgeInsets.only(top: 10, left: 36, right: 36, bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Price :",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              "${travelList[selectedIndex].prise}\$",
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          height: 50,
-                          width: 180,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: TextButton.icon(
-                            style: TextButton.styleFrom(
-                              overlayColor: Colors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))
-                            ),
-                            onPressed: () {},
-                            label: Text(
-                              "Buy Ticket",
-                              style: TextStyle(
-                                fontFamily: "dana",
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            icon: Icon(
-                              Icons.shop_2_rounded,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Price :",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
+              Text(
+                "${travelList[selectedIndex].prise}\$",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          Container(
+            height: 50,
+            width: 180,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: TextButton.icon(
+              style: TextButton.styleFrom(
+                overlayColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+              ),
+              onPressed: () {},
+              label: Text(
+                "Buy Ticket",
+                style: TextStyle(
+                  fontFamily: "dana",
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              icon: Icon(Icons.shop_2_rounded, color: Colors.white, size: 20),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Padding descriptionFeild() {
@@ -280,9 +264,8 @@ class _HomeState extends State<Home> {
           ExpandableText(
             travelList[selectedIndex].description,
             expandText: "show more",
-            
-            
-            maxLines: 3,
+
+            maxLines: 2,
             collapseText: "show less",
             animation: true,
             animationCurve: ElasticInCurve(),
